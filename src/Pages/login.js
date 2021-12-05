@@ -24,7 +24,7 @@ console.log(values)
 
  })
  const formStyles = {
-  background: 'beige',
+  background: 'whitesmoke',
   boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
   width: "28rem",
   padding: "2rem",
