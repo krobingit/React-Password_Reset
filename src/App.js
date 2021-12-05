@@ -1,15 +1,23 @@
 import './App.css';
 import { Switch,Redirect, Route } from 'react-router-dom';
 import { Login } from './Pages/login';
-
+import { Register } from './Pages/register'
+import {ForgotPassword} from './Pages/forgotPassword'
 function App() {
   return (
     <div className="App">
    <Switch>
-        <Route path="/">
-          <Redirect to="/login"/>
-          <Login />
+         <Route exact path="/register">
+          <Register />
         </Route>
+         <Route exact path="/forgotPassword">
+          <ForgotPassword />
+        </Route>
+        <Route path="/">
+                <Login />
+          <Redirect to="/login"/>
+        </Route>
+
       </Switch>
     </div>
   );
@@ -17,12 +25,8 @@ function App() {
 
 export default App;
 /*
- <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/forgotPassword">
-          <ForgotPassword />
-        </Route>
+
+
         <Route path="/resetPassword/:id/:token">
           <ResetPassword />
         </Route>*/

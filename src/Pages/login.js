@@ -6,7 +6,8 @@ function Login() {
  const signInSchema =
   yup.object({
    email: yup.string().email().required('Please enter your Email'),
-   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password not matched").required('Please enter your password')
+   password: yup.string()
+    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your password')
 
   });
 
@@ -35,7 +36,8 @@ console.log(values)
 return(
  <section className="loginPage">
 
-  <Form style={formStyles} onSubmit={handleSubmit}>
+  <Form style={formStyles} onSubmit={handleSubmit} >
+   <h3 style={{textAlign:"center"}}>Login to your Account</h3>
    <Form.Input onChange={handleChange} onBlur={handleBlur} value={values.email}
     error={ errors.email && touched.email && errors.email}
       fluid
@@ -60,7 +62,7 @@ return(
    <section className="FormAction">
     <p>New here?   <Link to="/register">Sign up</Link></p>
     <Link to="/forgotPassword">Forgot Password</Link>
-</section>
+   </section>
   </Form>
 
 
