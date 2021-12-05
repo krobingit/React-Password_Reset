@@ -60,9 +60,10 @@ console.log(req)
   background: 'whitesmoke',
   boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
   width: "28rem",
-  padding: "2rem",
-  borderRadius: "1rem",
-  margin: "1.5rem"
+  height: "minContent",
+  margin:"2rem",
+  padding: "1rem 2rem",
+  borderRadius: "1rem"
  }
  return (
 
