@@ -112,7 +112,8 @@ console.log(req)
     </div>
     {loader ?	<Loader type="Oval" color="crimson" height={50} width={30} />
     : ''}
-    {info ? <p style={{color:"red"}}>{info}</p> : ''}
+    {info ? <p
+     style={{ color: info.length>40 ? "blue" : "red" }}>{info}</p> : ''}
    <section className="FormAction">
    <Link to="/login">Back to Login</Link>
    </section>
