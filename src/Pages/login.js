@@ -52,8 +52,8 @@ function Login() {
   onSubmit: async (values) => {
     let isUser=await loginVerify(values);
   console.log(isUser)
-   let result= isUser ? history.push("/securedpage") : ''
-console.log(result)
+    let result = () =>  isUser ? history.push("/securedpage") : ''
+    result();
   }
 
 
