@@ -1,15 +1,15 @@
 import { Form, Button } from 'semantic-ui-react';
 //import * as yup from 'yup';
 import { useFormik } from "formik";
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 /**/
 function Login() {
-  const [login, setLogin] = useState(false);
+const [login,setLogin]=useState(true)
   const [info, setInfo] = useState(null);
   const history = useHistory();
-  const loginVerify = async (values) => {
+  async function loginVerify (values){
 
      const req=  await fetch("https://password-reset-mern.herokuapp.com/users/login",
         {
@@ -20,13 +20,14 @@ function Login() {
       ).then((response) => {
         if (response.status === 200) {
           // localStorage.setItem("x-auth-token",)
-          setLogin(true)
-          setInfo("Logging in.")
+
+          setInfo("Logging in.");
+          setLogin(true);
           return response.json();
         }
         else if (response.status === 401) {
-          setLogin(false)
           setInfo("Invalid Email/Password")
+                   setLogin(null)
         }
       })
 
@@ -34,9 +35,8 @@ function Login() {
     localStorage.setItem('x-auth-token',req.token)
     return login;
 
-
-
   }
+
 /*
  const signInSchema =
   yup.object({
@@ -46,22 +46,25 @@ function Login() {
 
   });
 */
- const { handleChange,handleSubmit, handleBlur,errors, touched, values } = useFormik({
 
-  initialValues:{
-   email: "",
-   password:""
-  },
- // validationSchema: signInSchema,
-  onSubmit: async (values) => {
-    let isUser=await loginVerify(values);
-  console.log(isUser)
-    let result = () =>  isUser ? history.push("/securedpage") : ''
-    result();
-  }
+    const { handleChange, handleSubmit, handleBlur, errors, touched, values } = useFormik({
+
+      initialValues: {
+        email: "",
+        password: ""
+      },
+      // validationSchema: signInSchema,
+      onSubmit: async (values) => {
+
+        let isUser = await loginVerify(values);
+        console.log(isUser)
+        let result = () => isUser ? history.push("/securedpage") : ''
+        result();
+      }
 
 
- })
+    })
+
  const formStyles = {
   background: 'whitesmoke',
   boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",

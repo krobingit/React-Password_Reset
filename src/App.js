@@ -5,6 +5,7 @@ import { Register } from './Pages/register'
 import {ForgotPassword} from './Pages/forgotPassword'
 import { SecuredPage } from './Pages/securedpage';
 function App() {
+
   return (
     <div className="App">
    <Switch>
