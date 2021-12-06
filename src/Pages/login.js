@@ -25,7 +25,7 @@ const [login,setLogin]=useState(true)
           setLogin(true);
           return response.json();
         }
-        else if (response.status === 401) {
+        else if (response.status === 401 || response.status===400) {
           setInfo("Invalid Email/Password")
                    setLogin(null)
         }
