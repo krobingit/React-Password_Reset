@@ -96,7 +96,8 @@ return(
 </div>
    <section className="FormAction">
         <p>New here?   <Link to="/register">Sign up</Link></p>
-      {loading ? <Loader type="Oval" color="crimson" height={50} width={30} /> : ''}
+        {loading ? <div className="LoaderDiv"><Loader type="Oval" color="crimson" height={50} width={30} />
+          <p style={{color:"crimson"}}>Validating..</p></div> : ''}
     <Link to="/forgotPassword">Forgot Password</Link>
       </section>
       {info ?  <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p>
