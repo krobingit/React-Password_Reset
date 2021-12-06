@@ -19,5 +19,10 @@ justify-content: center;
 }
 .leo{
 border-radius: 1rem;
+width:50%;
 object-fit: cover;
+}
+.SECURE{
+background-image: linear-gradient(to right top, #000000, #291e24, #4a3748, #665473, #7b75a3, #777cad, #7284b6, #6b8cbf, #5978a2, #486485, #39516a, #2c3e50);
+height:100vh;
 }
