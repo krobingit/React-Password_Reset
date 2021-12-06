@@ -1,5 +1,5 @@
 import { Form, Button } from 'semantic-ui-react';
-import * as yup from 'yup';
+//import * as yup from 'yup';
 import { useFormik } from "formik";
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 /**/
 function Login() {
   const [login, setLogin] = useState(false);
+  const [info, setInfo] = useState(null);
   const history = useHistory();
   const loginVerify = async (values) => {
 
@@ -20,20 +21,23 @@ function Login() {
         if (response.status === 200) {
           // localStorage.setItem("x-auth-token",)
           setLogin(true)
+          setInfo("Logging in.")
           return response.json();
         }
-        else if (response.status ===401)
+        else if (response.status === 401) {
           setLogin(false)
-
+          setInfo("Invalid Email/Password")
+        }
       })
 
-
+    console.log(req)
+    localStorage.setItem('x-auth-token',req.token)
     return login;
 
 
 
   }
-
+/*
  const signInSchema =
   yup.object({
    email: yup.string().email().required('Please enter your Email'),
@@ -41,14 +45,14 @@ function Login() {
     .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your password')
 
   });
-
+*/
  const { handleChange,handleSubmit, handleBlur,errors, touched, values } = useFormik({
 
   initialValues:{
    email: "",
    password:""
   },
-  validationSchema: signInSchema,
+ // validationSchema: signInSchema,
   onSubmit: async (values) => {
     let isUser=await loginVerify(values);
   console.log(isUser)
@@ -96,7 +100,8 @@ return(
    <section className="FormAction">
     <p>New here?   <Link to="/register">Sign up</Link></p>
     <Link to="/forgotPassword">Forgot Password</Link>
-   </section>
+      </section>
+      {info ? <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p> : '' }
   </Form>
 
 
