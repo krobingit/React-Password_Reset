@@ -4,7 +4,9 @@ import { useFormik } from "formik";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loader from "react-loader-spinner";
-function Register() {
+import { SecuredPage } from './securedpage'
+function Register()
+{
  const [info, setInfo] = useState(null);
  const [loader, setLoader] = useState(false);
  const signUpSchema =
@@ -14,7 +16,6 @@ function Register() {
    password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your new password'),
  confirmPassword: yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match')
-
   });
 
  const { handleChange, handleSubmit, handleBlur, errors, touched, values } = useFormik({
@@ -119,8 +120,6 @@ console.log(req)
    <Link to="/login">Back to Login</Link>
    </section>
    </Form>
-
-
   </section>
 
 

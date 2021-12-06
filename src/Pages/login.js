@@ -1,8 +1,39 @@
 import { Form, Button } from 'semantic-ui-react';
 import * as yup from 'yup';
 import { useFormik } from "formik";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom';
+/**/
 function Login() {
+  const [login, setLogin] = useState(false);
+  const history = useHistory();
+  const loginVerify = async (values) => {
+
+      const req = await fetch("https://password-reset-mern.herokuapp.com/users/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values)
+        }
+      ).then((response) => {
+        if (response.status === 200) {
+          // localStorage.setItem("x-auth-token",)
+          setLogin(true)
+          return response.json();
+        }
+        else if (response.status ===401)
+          setLogin(false)
+
+      })
+
+
+    return login;
+
+
+
+  }
+
  const signInSchema =
   yup.object({
    email: yup.string().email().required('Please enter your Email'),
@@ -18,8 +49,11 @@ function Login() {
    password:""
   },
   validationSchema: signInSchema,
-  onSubmit: (values) => {
-console.log(values)
+  onSubmit: async (values) => {
+    let isUser=await loginVerify(values);
+  console.log(isUser)
+    let result=isUser ? history.push("/securedpage") : ''
+
   }
 
 

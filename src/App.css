@@ -17,6 +17,7 @@ margin-top: 2rem;
 display: flex;
 justify-content: center;
 }
-.Reg{
-margin:2rem;
+.leo{
+border-radius: 1rem;
+object-fit: cover;
 }
