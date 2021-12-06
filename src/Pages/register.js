@@ -14,7 +14,7 @@ function Register()
    email: yup.string().email().required('Please enter your Email'),
    password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your new password'),
  confirmPassword: yup.string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .oneOf([yup.ref('password'), null], 'Passwords must match').required("Required Field")
   });
 
  const { handleChange, handleSubmit, handleBlur, errors, touched, values } = useFormik({

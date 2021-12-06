@@ -51,8 +51,8 @@ function Login() {
         setLoading(true);
         let isUser = await loginVerify(values);
         console.log(isUser)
-        setLoading(false)
         let result = () => isUser ? history.push("/securedpage") : ''
+        setLoading(false)
         result();
       }
 

@@ -50,7 +50,7 @@ function ForgotPassword() {
     <section className="FormAction">
      <Link to="/login">Back to Login</Link>
     </section>
-     <p><b>Note:</b>Please enter your existing email address with us to receive password reset link</p>
+     <p><b>Note:</b>  Please enter your existing email address with us to receive password reset link</p>
    </Form>
 
 
