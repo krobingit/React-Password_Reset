@@ -10,7 +10,7 @@ function Login() {
   const history = useHistory();
   const loginVerify = async (values) => {
 
-      const req = await fetch("https://password-reset-mern.herokuapp.com/users/login",
+       await fetch("https://password-reset-mern.herokuapp.com/users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -52,8 +52,8 @@ function Login() {
   onSubmit: async (values) => {
     let isUser=await loginVerify(values);
   console.log(isUser)
-    let result=isUser ? history.push("/securedpage") : ''
-
+   let result= isUser ? history.push("/securedpage") : ''
+console.log(result)
   }
 
 
