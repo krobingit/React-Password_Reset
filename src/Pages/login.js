@@ -1,51 +1,44 @@
 import { Form, Button } from 'semantic-ui-react';
-//import * as yup from 'yup';
+import * as yup from 'yup';
 import { useFormik } from "formik";
 import {  useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-/**/
+import Loader from "react-loader-spinner";
+import axios from 'axios';
+
 function Login() {
-const [login,setLogin]=useState(true)
+
   const [info, setInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+
   async function loginVerify (values){
+    try {
+      const { request, data } = await axios.post("https://password-reset-mern.herokuapp.com/users/login", values)
+      console.log(request.status, data)
+      if (request.status === 200) {
+        localStorage.setItem('x-auth-token', data.token);
+        setInfo("Logging in.");
+        return true;
+      }
+    }
+    catch (err)
+    {
+     setInfo("Invalid Email/Password")
+      return false;
 
-     const req=  await fetch("https://password-reset-mern.herokuapp.com/users/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values)
-        }
-      ).then((response) => {
-        if (response.status === 200) {
-          // localStorage.setItem("x-auth-token",)
-
-          setInfo("Logging in.");
-          setLogin(true);
-          return response.json();
-        }
-        else if (response.status === 401 || response.status===400) {
-          setInfo("Invalid Email/Password")
-                   setLogin(null)
-        }
-      })
-
-    console.log(req)
-    localStorage.setItem('x-auth-token',req.token)
-    return login;
-
+    }
   }
 
-/*
+
  const signInSchema =
   yup.object({
-   email: yup.string().email().required('Please enter your Email'),
-   password: yup.string()
-    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your password')
+   email: yup.string().email().required('Email is required'),
+   password: yup.string().required('Password cannot be empty')
 
   });
-*/
+
 
     const { handleChange, handleSubmit, handleBlur, errors, touched, values } = useFormik({
 
@@ -53,11 +46,12 @@ const [login,setLogin]=useState(true)
         email: "",
         password: ""
       },
-      // validationSchema: signInSchema,
+       validationSchema: signInSchema,
       onSubmit: async (values) => {
-
+        setLoading(true);
         let isUser = await loginVerify(values);
         console.log(isUser)
+        setLoading(false)
         let result = () => isUser ? history.push("/securedpage") : ''
         result();
       }
@@ -101,10 +95,12 @@ return(
    <Button type="submit" inverted color='red'>Sign in</Button>
 </div>
    <section className="FormAction">
-    <p>New here?   <Link to="/register">Sign up</Link></p>
+        <p>New here?   <Link to="/register">Sign up</Link></p>
+      {loading ? <Loader type="Oval" color="crimson" height={50} width={30} /> : ''}
     <Link to="/forgotPassword">Forgot Password</Link>
       </section>
-      {info ? <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p> : '' }
+      {info ?  <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p>
+ : '' }
   </Form>
 
 
