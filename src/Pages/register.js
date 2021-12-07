@@ -12,7 +12,7 @@ function Register()
   yup.object({
    username: yup.string().min(5, "Minimum 5 characters needed").required('Username is mandatory'),
    email: yup.string().email().required('Please enter your Email'),
-   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Please enter your new password'),
+   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, ,one number,one special character").required('Please enter your new password'),
  confirmPassword: yup.string()
       .oneOf([yup.ref('password'), null], 'Passwords must match').required("Required Field")
   });

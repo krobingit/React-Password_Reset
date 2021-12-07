@@ -1,8 +1,8 @@
 import { Form, Button } from 'semantic-ui-react';
 import * as yup from 'yup';
 import { useFormik } from "formik";
-import {  useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {  useState} from 'react';
+import { useParams,useHistory  } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import axios from 'axios';
@@ -12,12 +12,12 @@ export function ResetPassword() {
   const [info, setInfo] = useState(null);
   const [loading, setLoading] = useState(false);
  const { id, token } = useParams();
-
+  const history = useHistory();
 
 
  const ResetSchema =
   yup.object({
-   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Password is required'),
+   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter,one numnber, one special character").required('Password is required'),
    confirmpassword:  yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match').required("Confirm Password is required")
 
@@ -43,7 +43,8 @@ setLoading(true)
     }
     catch (err)
     {
-     setInfo("Invalid Link or Expired")
+      setInfo("Invalid Link or Expired")
+      setTimeout(() => { history.push("/login") },3000);
     }
 setLoading(false)
       }
