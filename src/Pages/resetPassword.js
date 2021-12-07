@@ -2,38 +2,24 @@ import { Form, Button } from 'semantic-ui-react';
 import * as yup from 'yup';
 import { useFormik } from "formik";
 import {  useState } from 'react';
-import { useParams } from 'react-router-dom'
-/*import { Link } from 'react-router-dom';
-import Loader from "react-loader-spinner";*/
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Loader from "react-loader-spinner";
 import axios from 'axios';
 
 export function ResetPassword() {
 
   const [info, setInfo] = useState(null);
-  /*const [loading, setLoading] = useState(false);
- const history = useHistory();*/
+  const [loading, setLoading] = useState(false);
  const { id, token } = useParams();
 
-  async function ResetPasswordVerify (values){
-    try {
-      const { request, data } = await axios.post(`https://password-reset-mern.herokuapp.com/resetPassword/${id}/${token}`, values)
-      console.log(request.status, data)
-
-    }
-    catch (err)
-    {
-     setInfo("Invalid password/Password")
-      return false;
-
-    }
-  }
 
 
  const ResetSchema =
   yup.object({
-   password: yup.string().required('Password is required'),
+   password: yup.string().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/, "Password must be eight characters or more including one uppercase letter,one lowercase letter, one special character").required('Password is required'),
    confirmpassword:  yup.string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match').required("Required Field")
+    .oneOf([yup.ref('password'), null], 'Passwords must match').required("Confirm Password is required")
 
   });
 
@@ -46,12 +32,20 @@ export function ResetPassword() {
       },
        validationSchema: ResetSchema,
       onSubmit: async (values,{resetForm}) => {
-
-       let res = ResetPasswordVerify();
-       console.log(res);
-             // setLoading(true);
-       //setLoading(false);
-
+setLoading(true)
+       const { password } = values;
+    try {
+      const { request } = await axios.post(`https://password-reset-mern.herokuapp.com/resetPassword/${id}/${token}`,
+        { password: password })
+      console.log(request);
+      resetForm();
+      setInfo("Password has been reset Successfully.Please feel free to use your new password 😊")
+    }
+    catch (err)
+    {
+     setInfo("Invalid Link or Expired")
+    }
+setLoading(false)
       }
 
 
@@ -78,7 +72,7 @@ return(
       placeholder='New Password'
     id='password'
     name="password"
-    type="text"
+    type="password"
     />
    <Form.Input onChange={handleChange} onBlur={handleBlur} value={values.confirmpassword}
           error={ errors.confirmpassword && touched.confirmpassword && errors.confirmpassword}
@@ -87,13 +81,19 @@ return(
     placeholder='Confirm New Password'
     id="confirmpassword"
     name="confirmpassword"
-    type="confirmpassword"
+    type="password"
    />
 <div className="signin">
    <Button type="submit" inverted color='red'>Change Password</Button>
 </div>
-      {info ?  <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p>
- : '' }
+      <div className="forgetDiv">
+          {loading ? <div className="LoaderDiv"><Loader type="Oval" color="crimson" height={50} width={30} />
+           <p style={{ color: "crimson" }}>Please wait..</p></div> : ''}
+         {info ? <p style={{color:info.length>24 ? "blue" : "red",marginTop:"1rem"}}>{info}</p>: '' }
+    </div>
+       <section className="FormAction">
+     <Link to="/login">Back to Login</Link>
+    </section>
   </Form>
 
 

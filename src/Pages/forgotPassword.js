@@ -1,8 +1,14 @@
 import { Form, Button } from 'semantic-ui-react';
 import * as yup from 'yup';
 import { useFormik } from "formik";
+import {  useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loader from "react-loader-spinner";
+import axios from 'axios';
+
 function ForgotPassword() {
+  const [loading, setLoading] = useState(false);
+    const [info, setInfo] = useState(null);
  const ForgetPassSchema =
   yup.object({
    email: yup.string().email().required('Please enter your Email'),
@@ -15,8 +21,22 @@ function ForgotPassword() {
    email: ""
   },
   validationSchema: ForgetPassSchema,
-  onSubmit: (values) => {
-   console.log(values)
+   onSubmit: async (values,{resetForm}) => {
+     setLoading(true);
+     try {
+       const { request} = await axios.post("https://password-reset-mern.herokuapp.com/resetPassword", values);
+       console.log(request);
+       resetForm();
+       setInfo("Password Reset Link has been sent to your mail. Please Check it out");
+     }
+catch(err){
+setInfo("Invalid Email Address Provided")
+
+     }
+ setLoading(false);
+
+
+
   }
 
 
@@ -43,9 +63,15 @@ function ForgotPassword() {
      id='email'
      name="email"
      type="text"
-    />
-    <div className="signin">
-     <Button type="submit" inverted color='red'>Send Mail</Button>
+       />
+       <div className="signin">
+        <Button type="submit" inverted color='red'>Send Mail</Button>
+</div>
+    <div className="forgetDiv">
+
+          {loading ? <div className="LoaderDiv"><Loader type="Oval" color="crimson" height={50} width={30} />
+           <p style={{ color: "crimson" }}>Please wait..</p></div> : ''}
+         {info ? <p style={{color:"blue",marginTop:"1rem"}}>{info}</p>: '' }
     </div>
     <section className="FormAction">
      <Link to="/login">Back to Login</Link>
