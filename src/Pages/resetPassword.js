@@ -35,11 +35,10 @@ export function ResetPassword() {
 setLoading(true)
        const { password } = values;
     try {
-      const { request } = await axios.post(`https://password-reset-mern.herokuapp.com/resetPassword/${id}/${token}`,
+       await axios.post(`https://password-reset-mern.herokuapp.com/resetPassword/${id}/${token}`,
         { password: password })
-      console.log(request);
       resetForm();
-      setInfo("Password has been reset Successfully.Please feel free to use your new password 😊")
+      setInfo("Password has been reset Successfully.😊")
     }
     catch (err)
     {
