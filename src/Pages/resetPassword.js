@@ -44,7 +44,7 @@ setLoading(true)
     catch (err)
     {
       setInfo("Invalid Link or Expired")
-      setTimeout(() => { history.push("/login") },3000);
+      setTimeout(() => { history.push("/login") },3500);
     }
 setLoading(false)
       }
