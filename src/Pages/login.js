@@ -34,7 +34,7 @@ function Login() {
 
  const signInSchema =
   yup.object({
-   email: yup.string().email().required('Email is required'),
+   email: yup.string().required('Email is required'),
    password: yup.string().required('Password cannot be empty')
 
   });
@@ -97,7 +97,7 @@ return(
    <section className="FormAction">
         <p>New here?   <Link to="/register">Sign up</Link></p>
         {loading ? <div className="LoaderDiv"><Loader type="Oval" color="crimson" height={50} width={30} />
-          <p style={{color:"crimson"}}>Validating..</p></div> : ''}
+          <p style={{ color: "crimson" }}>Validating..</p></div> : ''}
     <Link to="/forgotPassword">Forgot Password</Link>
       </section>
       {info ?  <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p>
