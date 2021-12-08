@@ -71,7 +71,7 @@ setInfo("The Email you entered does not exist")
 
           {loading ? <div className="LoaderDiv"><Loader type="Oval" color="crimson" height={50} width={30} />
            <p style={{ color: "crimson" }}>Please wait..</p></div> : ''}
-         {info ? <p style={{color: info.length>30 ? "blue" : "red",marginTop:"1rem"}}>{info}</p>: '' }
+         {info ? <p style={{color: info.length>37 ? "blue" : "red",marginTop:"1rem"}}>{info}</p>: '' }
     </div>
     <section className="FormAction">
      <Link to="/login">Back to Login</Link>
