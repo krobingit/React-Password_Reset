@@ -30,7 +30,7 @@ function ForgotPassword() {
        setInfo("Password Reset Link has been sent to your mail. Please Check it out");
      }
 catch(err){
-setInfo("Invalid Email Address Provided")
+setInfo("The Email you entered does not exist")
 
      }
  setLoading(false);
