@@ -30,7 +30,7 @@ function Register()
    setLoader(true);
    const { confirmPassword, ...others } = values;
 
-    const req = fetch('https://password-reset-mern.herokuapp.com/users/register',
+    const req = fetch(`${API_URL}/users/register`,
      {
       method: "POST",
       headers: { "Content-Type": "application/json" },

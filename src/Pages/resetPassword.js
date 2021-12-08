@@ -6,6 +6,7 @@ import { useParams,useHistory  } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import axios from 'axios';
+import { API_URL } from './global_constant';
 
 export function ResetPassword() {
 
@@ -35,7 +36,7 @@ export function ResetPassword() {
 setLoading(true)
        const { password } = values;
     try {
-       await axios.post(`https://password-reset-mern.herokuapp.com/resetPassword/${id}/${token}`,
+      await axios.post(`${API_URL}/${id}/${token}`,
         { password: password })
       resetForm();
       setInfo("Password has been reset Successfully.😊")

@@ -5,6 +5,7 @@ import {  useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import axios from 'axios';
+import { API_URL } from './global_constant';
 
 function ForgotPassword() {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ function ForgotPassword() {
    onSubmit: async (values,{resetForm}) => {
      setLoading(true);
      try {
-       const { request} = await axios.post("https://password-reset-mern.herokuapp.com/resetPassword", values);
+       const { request} = await axios.post(`${API_URL}/resetPassword`, values);
        console.log(request);
        resetForm();
        setInfo("Password Reset Link has been sent to your mail. Please Check it out");

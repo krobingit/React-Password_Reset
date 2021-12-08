@@ -15,7 +15,7 @@ function Login() {
 
   async function loginVerify (values){
     try {
-      const { request, data } = await axios.post("https://password-reset-mern.herokuapp.com/users/login", values)
+      const { request, data } = await axios.post(`${API_URL}/users/login`, values)
       console.log(request.status, data)
       if (request.status === 200) {
         localStorage.setItem('x-auth-token', data.token);
