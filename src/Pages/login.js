@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import Loader from "react-loader-spinner";
 import axios from 'axios';
+import { API_URL } from './global_constant';
 
 function Login() {
 

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Loader from "react-loader-spinner";
+import { API_URL } from './global_constant';
 function Register()
 {
  const [info, setInfo] = useState(null);
