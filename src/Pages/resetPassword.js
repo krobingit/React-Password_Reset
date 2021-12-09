@@ -36,7 +36,7 @@ export function ResetPassword() {
 setLoading(true)
        const { password } = values;
     try {
-      await axios.post(`${API_URL}/${id}/${token}`,
+      await axios.post(`${API_URL}/resetPassword/${id}/${token}`,
         { password: password })
       resetForm();
       setInfo("Password has been reset Successfully.😊")
