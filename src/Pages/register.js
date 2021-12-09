@@ -39,7 +39,7 @@ function Register()
       body:JSON.stringify(others)
      }).then((response) => {
 
-      console.log(response)
+    //  console.log(response)
       if (response.status === 400)
       {
        setLoader(false)
