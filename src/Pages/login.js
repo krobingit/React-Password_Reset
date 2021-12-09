@@ -20,13 +20,12 @@ function Login() {
       console.log(request.status, data)
       if (request.status === 200) {
         localStorage.setItem('x-auth-token', data.token);
-        setInfo("Logging in.");
         return true;
       }
     }
     catch (err)
     {
-     setInfo("Invalid Email/Password")
+     setInfo("Invalid Email/Username/Password")
       return false;
 
     }
@@ -35,7 +34,7 @@ function Login() {
 
  const signInSchema =
   yup.object({
-   email: yup.string().required('Email is required'),
+   email: yup.string().required('Email/Username is required'),
    password: yup.string().required('Password cannot be empty')
 
   });
@@ -77,8 +76,8 @@ return(
    <Form.Input onChange={handleChange} onBlur={handleBlur} value={values.email}
     error={ errors.email && touched.email && errors.email}
       fluid
-      label='Email'
-      placeholder='Email'
+      label='Email/Username'
+      placeholder='Email/Username'
     id='email'
     name="email"
     type="text"
@@ -101,7 +100,7 @@ return(
           <p style={{ color: "crimson" }}>Validating..</p></div> : ''}
     <Link to="/forgotPassword">Forgot Password</Link>
       </section>
-      {info ?  <p style={{ color: info.length>13 ? "red" : "blue"  }}>{info}</p>
+      {info ?  <p style={{ color: "red" }}>{info}</p>
  : '' }
   </Form>
 
